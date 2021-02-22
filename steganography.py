@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 """
 Created on Fri May  8 18:42:44 2020
 
@@ -20,7 +22,7 @@ def open_file():
 
 def encode_file():
     if(img):
-        global msg, password
+        global msg, password, popup
         popup = tk.Toplevel()
         popup.title("")
         popup.geometry("300x80")
@@ -35,14 +37,15 @@ def encode_file():
         password_label.grid(row=1,column=0)
         password.grid(row=1,column=1)
         confirm_button.grid(row=2, column=1)
-        popup.mainloop()
-        # encode(msg,"Cryptography is awesome")
 
 def confirm_secret():
+    global popup
     encode(msg.get(),password.get())
+    popup.destroy()
+    popup = None
 
 def decode_file():
-    global password, characters
+    global password, characters, popup
     popup = tk.Toplevel()
     popup.title("")
     popup.geometry("300x80")
@@ -57,11 +60,12 @@ def decode_file():
     characters_label.grid(row=1,column=0)
     characters.grid(row=1,column=1)
     confirm_button.grid(row=2, column=1)
-    popup.mainloop()
 
 def confirm_decode():
-    print(password)
+    global popup
     decode(password.get(), int(characters.get()))
+    popup.destroy()
+    popup = None
 
 def encode(message,phrase):
     random.seed(phrase) # This will generate the seed based on the phrase  
